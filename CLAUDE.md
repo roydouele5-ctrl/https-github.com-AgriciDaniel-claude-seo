@@ -4,8 +4,8 @@
 
 This repository contains **Claude SEO**, a Tier 4 Claude Code skill for comprehensive
 SEO analysis across all industries. It follows the Agent Skills open standard and the
-3-layer architecture (directive, orchestration, execution). 25 sub-skills (21 core +
-1 orchestrator + 1 framework integration + 2 extension mirrors), 18 sub-agents (15 core +
+3-layer architecture (directive, orchestration, execution). 26 sub-skills (22 core +
+1 orchestrator + 1 framework integration + 2 extension mirrors), 19 sub-agents (16 core +
 1 framework integration + 2 extension mirrors), and an extensible reference
 system cover technical SEO, content quality,
 schema markup, image optimization, sitemap architecture, AI search optimization,
@@ -23,7 +23,7 @@ claude-seo/
   .claude-plugin/
     plugin.json                    # Plugin manifest (v2.2.4)
     marketplace.json               # Marketplace catalog for distribution
-  skills/                            # 25 sub-skills (auto-discovered)
+  skills/                            # 26 sub-skills (auto-discovered)
     seo/                           # Main orchestrator skill
       SKILL.md                     # Entry point, routing table, core rules
       references/                  # On-demand knowledge files (13 files)
@@ -60,11 +60,15 @@ claude-seo/
     seo-ecommerce/               # E-commerce SEO (v1.9.0, by Matej Marjanovic)
       SKILL.md
       references/                # Marketplace API endpoints
+    seo-affiliate/               # Affiliate block compliance, schema, conversion
+      SKILL.md
+      references/                # Offer architecture, YMYL compliance, JSON-LD, benchmarks, Lovable prompt
+      templates/                 # affiliate-block.tsx (React/Lovable), affiliate-block.html (WordPress)
     seo-dataforseo/SKILL.md     # Live SEO data via DataForSEO MCP (extension mirror)
     seo-image-gen/              # AI image generation for SEO assets (extension mirror)
       SKILL.md
       references/                # Image gen reference files (7 files)
-  agents/                          # 18 subagents (auto-discovered)
+  agents/                          # 19 subagents (auto-discovered)
     seo-technical.md             # Crawlability, indexability, security
     seo-content.md               # E-E-A-T, readability, thin content
     seo-schema.md                # Structured data validation
@@ -82,6 +86,7 @@ claude-seo/
     seo-sxo.md                   # Search experience optimization
     seo-drift.md                 # SEO drift monitoring
     seo-ecommerce.md             # E-commerce SEO analysis
+    seo-affiliate.md             # Affiliate block compliance, schema, conversion
     seo-flow.md                  # FLOW framework integration
   hooks/                           # Quality gate hooks
     hooks.json                   # PostToolUse schema validation
@@ -172,6 +177,7 @@ claude-seo/
 | `/seo sxo <url>` | Search Experience Optimization |
 | `/seo drift baseline\|compare\|history <url>` | SEO drift monitoring |
 | `/seo ecommerce <url>` | E-commerce SEO |
+| `/seo affiliate [command] <url>` | Affiliate block audit, generation, valuation |
 | `/seo hreflang [url]` | Hreflang and international SEO |
 | `/seo plan <type>` | Strategic planning by industry |
 | `/seo programmatic [url\|plan]` | Programmatic SEO analysis |

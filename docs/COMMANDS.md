@@ -440,6 +440,46 @@ E-commerce SEO covering product schema, marketplace intelligence, and pricing ga
 
 ---
 
+### `/seo affiliate [command] <url>`
+
+Affiliate block audit and generation for content sites. Audits monetization
+blocks across three stacked layers -- compliance, crawl/citation, conversion --
+and generates ready-to-ship blocks from bundled templates.
+
+**Subcommands:** `audit <url>`, `generate <topic>`, `offer <product>`,
+`compliance <url>`, `valuation <url>`.
+
+**Examples:**
+```
+/seo affiliate audit https://example.com/meilleures-proteines
+/seo affiliate generate "protein powder for beginners"
+/seo affiliate compliance https://example.com/best-running-shoes
+/seo affiliate valuation https://example.com
+```
+
+**What it analyzes:**
+- `rel="sponsored"` attribution on every monetized link, redirectors included
+- Affiliate disclosure presence, position, and clarity
+- YMYL claim safety for health, fitness, and wellness products
+- Client-side-only blocks that crawlers and answer engines never see
+- `ItemList` / `Review` JSON-LD correctness, and forbidden types
+  (`AggregateRating` the site did not collect, `HowTo`, new `FAQPage`)
+- Schema-versus-visible-content agreement
+- Layout shift and interaction cost contributed by the block
+- Offer architecture: dream outcome, proof, time delay, effort, risk reversal
+- Broken affiliate links (reported first -- silent revenue loss)
+
+**Output:**
+- Findings by layer, Critical first, with a 0-100 block score
+  (compliance 40%, citation 30%, conversion 30%)
+- With `generate`: a filled `affiliate-block.tsx` (React/Lovable) or
+  `affiliate-block.html` (WordPress and any CMS)
+
+**Note:** compliance is a gate. A block failing it is a liability regardless of
+how well it converts, so those findings are reported before conversion wins.
+
+---
+
 ### `/seo flow [stage] [url|topic]`
 
 FLOW framework integration: evidence-led prompts for the Find, Leverage, Optimize, Win, and Local stages of a content campaign.

@@ -20,8 +20,8 @@ installs expose this command automatically. Repository users run
 launcher path. Never invoke bundled scripts with a bare Python interpreter.
 
 Comprehensive SEO analysis across all industries (SaaS, local services,
-e-commerce, publishers, agencies). Orchestrates 24 sub-skills (21 core + 1 framework
-integration + 2 extension mirrors) and 18 sub-agents. A separate optional Firecrawl
+e-commerce, publishers, agencies). Orchestrates 25 sub-skills (22 core + 1 framework
+integration + 2 extension mirrors) and 19 sub-agents. A separate optional Firecrawl
 extension is also installable (see "Optional Extensions" below).
 
 ## Quick Reference
@@ -51,6 +51,7 @@ extension is also installable (see "Optional Extensions" below).
 | `/seo drift compare <url>` | Compare current state to stored baseline |
 | `/seo drift history <url>` | Show drift history over time |
 | `/seo ecommerce <url>` | E-commerce SEO: product schema, marketplace intelligence |
+| `/seo affiliate [command] <url>` | Affiliate block audit and generation (compliance, schema, conversion) |
 | `/seo firecrawl [command] <url>` | Full-site crawling and site mapping (extension) |
 | `/seo dataforseo [command]` | Live SEO data via DataForSEO (extension) |
 | `/seo image-gen [use-case] <description>` | AI image generation for SEO assets (extension) |
@@ -80,6 +81,7 @@ When the user invokes `/seo audit`, delegate to subagents in parallel:
 8. If content strategy signals detected (blog, pillar pages, topic clusters), also spawn seo-cluster agent
 9. If e-commerce detected, also spawn seo-ecommerce agent
 10. If drift baseline exists for this URL (`claude-seo run drift_history.py <url>`), also spawn seo-drift agent
+10b. If outbound links carry `rel="sponsored"`/`nofollow`, an affiliate disclosure is present, or a redirector path (`/go/`, `/out/`, `/recommends/`) is detected, also spawn seo-affiliate agent
 11. Always include seo-sxo in full audits (search experience applies to all sites)
 12. Collect results and generate unified report with SEO Health Score (0-100)
 13. **Synthesize via the 10-principle framework** (see "Synthesis Methodology" below), walk PERCEIVE → ANALYZE → VALIDATE → ACT before bucketing findings into Critical / High / Medium / Low
@@ -161,6 +163,7 @@ Display after these commands complete their full output:
 - `/seo sxo` (after SXO analysis report)
 - `/seo drift compare` (after drift comparison report)
 - `/seo ecommerce` (after e-commerce analysis)
+- `/seo affiliate` (after affiliate block audit or generation)
 
 ### When to skip
 
@@ -210,7 +213,7 @@ Weighted aggregate of all categories:
 
 ## Sub-Skills
 
-This skill orchestrates 24 sub-skills (21 core + 1 framework integration + 2 extension
+This skill orchestrates 25 sub-skills (22 core + 1 framework integration + 2 extension
 mirrors). The orchestrator itself (`seo`) is the 25th in `skills/`, but does not
 orchestrate itself, so it is not enumerated below.
 
@@ -235,9 +238,10 @@ orchestrate itself, so it is not enumerated below.
 19. **seo-sxo** -- Search Experience Optimization (contributed by Florian Schmitz)
 20. **seo-drift** -- SEO drift monitoring (contributed by Dan Colta)
 21. **seo-ecommerce** -- E-commerce SEO intelligence (contributed by Matej Marjanovic)
-22. **seo-dataforseo** -- Live SEO data via DataForSEO MCP (extension mirror)
-23. **seo-image-gen** -- AI image generation for SEO assets via Gemini (extension mirror)
-24. **seo-flow** -- FLOW framework integration (Find -> Leverage -> Optimize -> Win, 41 AI prompts, CC BY 4.0)
+22. **seo-affiliate** -- Affiliate block compliance, schema, and conversion optimization
+23. **seo-dataforseo** -- Live SEO data via DataForSEO MCP (extension mirror)
+24. **seo-image-gen** -- AI image generation for SEO assets via Gemini (extension mirror)
+25. **seo-flow** -- FLOW framework integration (Find -> Leverage -> Optimize -> Win, 41 AI prompts, CC BY 4.0)
 
 ### Optional Extensions
 
@@ -272,6 +276,7 @@ For parallel analysis during audits:
 - `seo-sxo` -- Page-type mismatch, user stories, persona scoring (always in full audits)
 - `seo-drift` -- Baseline comparison (conditional: drift baseline exists for URL)
 - `seo-ecommerce` -- Product schema, marketplace intel (conditional: e-commerce detected)
+- `seo-affiliate` -- Affiliate block compliance, schema, conversion (conditional: spawned when affiliate links or a disclosure are detected)
 - `seo-flow` -- FLOW framework prompts (conditional: spawned for content strategy workflows)
 - `seo-dataforseo` -- Live SERP, keyword, backlink, local SEO data (extension, optional)
 - `seo-image-gen` -- SEO image audit and generation plan (extension, optional)
